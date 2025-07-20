@@ -1,2 +1,273 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>D Okeh - Toko Online</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: #f8f8f8;
+        color: #333;
+      }
+
+      header {
+        background: #ff6600;
+        color: white;
+        padding: 1.5rem;
+        text-align: center;
+      }
+
+      .btn {
+        display: inline-block;
+        background: #28a745;
+        color: white;
+        padding: 8px 12px;
+        text-decoration: none;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px 2px;
+      }
+
+      .btn-small {
+        padding: 4px 8px;
+        font-size: 14px;
+      }
+
+      .produk-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+        padding: 2rem;
+      }
+
+      .produk {
+        background: white;
+        padding: 1rem;
+        border-radius: 10px;
+        width: 200px;
+        text-align: center;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .produk img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+
+      .keranjang,
+      .form-pemesanan {
+        max-width: 500px;
+        margin: 2rem auto;
+        background: #fff;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .keranjang ul {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .keranjang li {
+        margin-bottom: 12px;
+      }
+
+      .form-pemesanan input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+      }
+
+      footer {
+        background: #333;
+        color: white;
+        text-align: center;
+        padding: 1rem;
+        margin-top: 2rem;
+      }
+
+      hr {
+        margin: 3rem auto;
+        width: 80%;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>D Okeh</h1>
+      <p>Okeh Rasanya, Okeh Harganya</p>
+    </header>
+
+    <section class="produk-container">
+      <div class="produk">
+        <img src="ori.png" alt="original" />
+        <h2>Paket Original</h2>
+        <p>Rp 8.000</p>
+        <button class="btn" onclick="tambahKeKeranjang('Paket Original', 8000)">Tambah ke Keranjang</button>
+      </div>
+      <div class="produk">
+        <img src="geprek.png" alt="geprek" />
+        <h2>Paket Geprek</h2>
+        <p>Rp 12.000</p>
+        <button class="btn" onclick="tambahKeKeranjang('Paket Geprek', 12000)">Tambah ke Keranjang</button>
+      </div>
+      <div class="produk">
+        <img src="bbq.png" alt="bbq" />
+        <h2>Paket BBQ</h2>
+        <p>Rp 14.000</p>
+        <button class="btn" onclick="tambahKeKeranjang('Paket BBQ', 14000)">Tambah ke Keranjang</button>
+      </div>
+      <div class="produk">
+        <img src="paket1.png" alt="paket1" />
+        <h2>Paket 1</h2>
+        <p>Rp 20.000</p>
+        <button class="btn" onclick="tambahKeKeranjang('Paket 1', 20000)">Tambah ke Keranjang</button>
+      </div>
+    </section>
+
+    <hr />
+
+    <section class="keranjang" id="keranjang">
+      <h2>Keranjang Belanja</h2>
+      <div id="isi-keranjang">Keranjang kosong.</div>
+    </section>
+
+    <section class="form-pemesanan">
+      <h2>Form Pemesanan</h2>
+      <form id="formOrder" onsubmit="kirimPesanan(event)">
+        <input type="text" id="nama" placeholder="Nama Anda" required />
+        <input type="text" id="alamat" placeholder="Alamat Lengkap" required />
+        <input type="tel" id="nohp" placeholder="No HP / WhatsApp" required />
+        <button type="submit" class="btn">Kirim Pesanan via WhatsApp</button>
+      </form>
+    </section>
+
+    <section class="profil-usaha" style="max-width: 800px; margin: 2rem auto; background: #fff; padding: 1.5rem; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1)">
+      <h2>Profil Usaha</h2>
+      <p>
+        <strong>D Okeh</strong> adalah usaha mikro yang bergerak di bidang kuliner, menyajikan ayam crispy, geprek, BBQ, dan berbagai paket menu lainnya dengan harga terjangkau. Kami mengutamakan rasa, kualitas, dan pelayanan terbaik untuk
+        semua pelanggan.
+      </p>
+    </section>
+
+    <section class="kontak-lokasi" style="max-width: 800px; margin: 2rem auto; background: #fff; padding: 1.5rem; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1)">
+      <h2>Kontak Kami</h2>
+      <p><strong>Alamat:</strong> 247 Jl. Karangpawitan,Jawa Barat</p>
+      <p><strong>WhatsApp:</strong> <a href="https://wa.me/6282120009899" target="_blank">+62 82120009899</a></p>
+
+      <h3 style="margin-top: 1rem">Lokasi Kami di Google Maps</h3>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63398.828732050384!2d107.8942381!3d-7.2307174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68b1227273f98f%3A0x3f17b246f253b8c9!2sGarut%2C%20Kabupaten%20Garut%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1621412345678!5m2!1sid!2sid"
+        width="100%"
+        height="300"
+        style="border: 0"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </section>
+
+    <section class="feedback" style="max-width: 800px; margin: 2rem auto; background: #fff; padding: 1.5rem; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1)">
+      <h2>Feedback Pelanggan</h2>
+      <form id="formFeedback" onsubmit="kirimFeedback(event)">
+        <input type="text" id="namaFeedback" placeholder="Nama Anda" required style="width: 100%; padding: 10px; margin-bottom: 10px" />
+        <label for="rating">Rating:</label>
+        <select id="rating" required style="width: 100%; padding: 10px; margin-bottom: 10px">
+          <option value="">Pilih rating</option>
+          <option value="5">5 - Sangat Puas</option>
+          <option value="4">4 - Puas</option>
+          <option value="3">3 - Cukup</option>
+          <option value="2">2 - Kurang</option>
+          <option value="1">1 - Buruk</option>
+        </select>
+        <textarea id="pesanFeedback" placeholder="Tulis saran atau komentar Anda..." rows="4" required style="width: 100%; padding: 10px; margin-bottom: 10px"></textarea>
+        <button type="submit" class="btn">Kirim Feedback</button>
+      </form>
+    </section>
+
+    <footer>
+      <p>© 2025 D Okeh. All rights reserved.</p>
+    </footer>
+
+    <script>
+      let keranjang = [];
+
+      function tambahKeKeranjang(nama, harga) {
+        const index = keranjang.findIndex((item) => item.nama === nama);
+        if (index !== -1) {
+          keranjang[index].jumlah += 1;
+        } else {
+          keranjang.push({ nama, harga, jumlah: 1 });
+        }
+        tampilkanKeranjang();
+      }
+
+      function tambahJumlah(index) {
+        keranjang[index].jumlah++;
+        tampilkanKeranjang();
+      }
+
+      function kurangJumlah(index) {
+        keranjang[index].jumlah--;
+        if (keranjang[index].jumlah <= 0) {
+          keranjang.splice(index, 1);
+        }
+        tampilkanKeranjang();
+      }
+
+      function tampilkanKeranjang() {
+        const div = document.getElementById("isi-keranjang");
+        if (keranjang.length === 0) {
+          div.innerHTML = "<p>Keranjang kosong.</p>";
+          return;
+        }
+
+        let total = 0;
+        let html = "<ul>";
+        keranjang.forEach((item, index) => {
+          const subtotal = item.harga * item.jumlah;
+          total += subtotal;
+          html += `<li>
+        ${item.nama} (Rp ${item.harga}) x ${item.jumlah} = Rp ${subtotal.toLocaleString()}
+        <button class="btn btn-small" onclick="tambahJumlah(${index})">+</button>
+        <button class="btn btn-small" onclick="kurangJumlah(${index})">−</button>
+      </li>`;
+        });
+        html += "</ul>";
+        html += `<p><strong>Total Harga: Rp ${total.toLocaleString()}</strong></p>`;
+        div.innerHTML = html;
+      }
+
+      function kirimPesanan(e) {
+        e.preventDefault();
+        if (keranjang.length === 0) {
+          alert("Keranjang masih kosong!");
+          return;
+        }
+
+        const nama = document.getElementById("nama").value;
+        const alamat = document.getElementById("alamat").value;
+        const nohp = document.getElementById("nohp").value;
+
+        const pesan = keranjang.map((i) => `- ${i.nama} x${i.jumlah} (Rp ${i.harga * i.jumlah})`).join("%0A");
+        const total = keranjang.reduce((a, b) => a + b.harga * b.jumlah, 0);
+        const teks = `Halo, saya ingin memesan:%0A${pesan}%0ATotal: Rp ${total.toLocaleString()}%0A%0ANama: ${nama}%0AAlamat: ${alamat}%0ANo HP: ${nohp}`;
+
+        window.open(`https://wa.me/6282120009899?text=${teks}`, "_blank");
+
+        keranjang = [];
+        tampilkanKeranjang();
+        document.getElementById("formOrder").reset();
+      }
+
+      tampilkanKeranjang();
+    </script>
+  </body>
+</html>
